@@ -12939,6 +12939,7 @@
       "category": "Bugs",
       "framework": "global",
       "requires": ["tanstack-table"],
+      "disabledWhen": ["react-compiler"],
       "isScanRule": false
     }
   },

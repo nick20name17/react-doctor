@@ -155,6 +155,7 @@ export const tanstackTableNoUnstableDataOrColumns = defineRule({
   severity: "warn",
   category: "Correctness",
   requires: ["tanstack-table"],
+  disabledWhen: ["react-compiler"],
   recommendation:
     "Give the table's data and columns options stable references: useMemo or useState inside the component, or a module-scope constant, so row and column models are not rebuilt on every render.",
   create: (context: RuleContext) => ({

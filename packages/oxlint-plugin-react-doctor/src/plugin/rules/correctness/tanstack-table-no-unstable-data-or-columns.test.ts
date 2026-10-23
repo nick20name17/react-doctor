@@ -159,4 +159,22 @@ describe("tanstack-table-no-unstable-data-or-columns", () => {
     );
     expect(result.diagnostics).toHaveLength(4);
   });
+
+  it("does not flag render-scoped arrays when React Compiler is configured", () => {
+    const result = runRule(
+      tanstackTableNoUnstableDataOrColumns,
+      `import { useReactTable } from "@tanstack/react-table";
+       const Table = ({ rows }) => {
+         const columns = [{ accessorKey: "name" }];
+         const table = useReactTable({
+           columns,
+           data: rows.filter((row) => row.isActive),
+         });
+         return null;
+       };`,
+      { settings: { "react-doctor": { capabilities: ["tanstack-table", "react-compiler"] } } },
+    );
+    expect(result.parseErrors).toEqual([]);
+    expect(result.diagnostics).toEqual([]);
+  });
 });
